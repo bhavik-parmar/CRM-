@@ -1,0 +1,16 @@
+{
+    "name": "bhavi/ams",
+    "description": "composer require phpoffice/phpspreadsheet",
+    "autoload": {
+        "psr-4": {
+            "Bhavi\\Ams\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bhavik Parmar",
+            "email": "parmar369369@gmail.com"
+        }
+    ],
+    "require": {}
+}
