@@ -98,37 +98,38 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"  href="#tables"  >
+      <a class="nav-link"  href="cource.php"  >
         <i class="icon-grid-2 menu-icon"></i>
-        <span class="menu-title">Tables</span>
+        <span class="menu-title">Cource</span>
         
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"  href="#icons"  >
-        <i class="icon-contract menu-icon"></i>
-        <span class="menu-title">Icons</span>
-        
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href="#auth" >
-        <i class="icon-head menu-icon"></i>
-        <span class="menu-title">User Pages</span>
-        
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href="#error"  >
-        <i class="icon-ban menu-icon"></i>
-        <span class="menu-title">Error pages</span>
-        
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="../../../docs/documentation.html">
+      <a class="nav-link"  href="certificates.php"  >
         <i class="icon-paper menu-icon"></i>
-        <span class="menu-title">Documentation</span>
+        <span class="menu-title">Certificate</span>
+        
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"  href="certified_users.php" >
+        <i class="icon-head menu-icon"></i>
+        <span class="menu-title">Certified User</span>
+        
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"  href="resume.php"  >
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Resumes</span>
+        
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="email_manage.php">
+      <i class="fa fa-envelope menu-icon"></i>
+
+        <span class="menu-title">Manage Email</span>
       </a>
     </li>
   </ul>

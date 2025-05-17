@@ -12,5 +12,7 @@
             "email": "parmar369369@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpoffice/phpspreadsheet": "^2.1"
+    }
 }

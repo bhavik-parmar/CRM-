@@ -14,6 +14,14 @@ include 'dbconn.php';
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap 5 JS (Place before closing body tag) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- <link rel="stylesheet" href="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css"> -->
@@ -52,14 +60,17 @@ include 'dbconn.php';
     </button>
     <ul class="navbar-nav mr-lg-2">
       <li class="nav-item nav-search d-none d-lg-block">
-        <div class="input-group">
-          <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
-            <span class="input-group-text" id="search">
-              <i class="icon-search"></i>
-            </span>
-          </div>
-          <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
-        </div>
+      <form class="d-none d-lg-block" method="GET" action="leads.php">
+  <div class="input-group">
+    <div class="input-group-prepend hover-cursor">
+      <span class="input-group-text" id="search">
+        <i class="icon-search"></i>
+      </span>
+    </div>
+    <input type="text" class="form-control" name="search" id="navbar-search-input" placeholder="Search now" aria-label="search">
+  </div>
+</form>
+
       </li>
     </ul>
     <ul class="navbar-nav navbar-nav-right">
@@ -113,37 +124,38 @@ include 'dbconn.php';
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"  href="#tables"  >
+      <a class="nav-link"  href="cource.php"  >
         <i class="icon-grid-2 menu-icon"></i>
-        <span class="menu-title">Tables</span>
+        <span class="menu-title">Cource</span>
         
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link"  href="#icons"  >
-        <i class="icon-contract menu-icon"></i>
-        <span class="menu-title">Icons</span>
-        
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href="#auth" >
-        <i class="icon-head menu-icon"></i>
-        <span class="menu-title">User Pages</span>
-        
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"  href="#error"  >
-        <i class="icon-ban menu-icon"></i>
-        <span class="menu-title">Error pages</span>
-        
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="../../../docs/documentation.html">
+      <a class="nav-link"  href="certificates.php"  >
         <i class="icon-paper menu-icon"></i>
-        <span class="menu-title">Documentation</span>
+        <span class="menu-title">Certificate</span>
+        
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"  href="certified_users.php" >
+        <i class="icon-head menu-icon"></i>
+        <span class="menu-title">Certified User</span>
+        
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"  href="resume.php"  >
+        <i class="icon-paper menu-icon"></i>
+        <span class="menu-title">Resumes</span>
+        
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="email_manage.php">
+      <i class="fa fa-envelope menu-icon"></i>
+
+        <span class="menu-title">Manage Email</span>
       </a>
     </li>
   </ul>
@@ -156,11 +168,33 @@ include 'dbconn.php';
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="card-title mb-0">Leads</p>
-                        <a href="add_leads.php" class="btn btn-primary btn-sm">+ Add Lead</a>
+                     
                     </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="add_leads.php" class="btn btn-primary btn-sm">+ Add Lead</a>
+<!-- Button -->
+<a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadExcelModal">
+    <i class="bi bi-upload"></i> Upload Excel
+</a>
 
+                    </div>
+                    <form method="GET" class="mb-3 d-flex align-items-center">
+  <label for="sourceFilter" class="me-2"> Source:</label>
+  <select name="source" id="sourceFilter" class="form-select form-select-sm me-2" style="width: 100%;" onchange="this.form.submit()">
+    <option value="">All Sources</option>
+    <?php
+    // Fetch distinct sources for dropdown
+    $sourceResult = mysqli_query($conn, "SELECT DISTINCT source FROM leads WHERE source != '' ORDER BY source ASC");
+    while ($sourceRow = mysqli_fetch_assoc($sourceResult)) {
+      $selected = (isset($_GET['source']) && $_GET['source'] == $sourceRow['source']) ? 'selected' : '';
+      echo '<option value="'.htmlspecialchars($sourceRow['source']).'" '.$selected.'>'.htmlspecialchars($sourceRow['source']).'</option>';
+    }
+    ?>
+  </select>
+  <noscript><button type="submit" class="btn btn-primary btn-sm">Filter</button></noscript>
+</form>
                     <div class="table-responsive">
                       <table class="table table-striped table-borderless">
                       <thead>
@@ -175,9 +209,32 @@ include 'dbconn.php';
 </thead>
 <tbody>
   <?php
+$sourceFilter = '';
+$searchQuery = '';
+$whereConditions = [];
+
+if (isset($_GET['source']) && $_GET['source'] !== '') {
+    $sourceFilter = mysqli_real_escape_string($conn, $_GET['source']);
+    $whereConditions[] = "source = '$sourceFilter'";
+}
+
+if (isset($_GET['search']) && $_GET['search'] !== '') {
+    $searchQuery = mysqli_real_escape_string($conn, $_GET['search']);
+    $whereConditions[] = "(name LIKE '%$searchQuery%' OR email LIKE '%$searchQuery%' OR phone LIKE '%$searchQuery%' OR company LIKE '%$searchQuery%' OR source LIKE '%$searchQuery%')";
+}
+
+$whereClause = count($whereConditions) ? "WHERE " . implode(' AND ', $whereConditions) : '';
+
+$query = "SELECT * FROM leads $whereClause ORDER BY id DESC";
 
 
-  $query = "SELECT * FROM leads ORDER BY id DESC";
+if (isset($_GET['source']) && $_GET['source'] !== '') {
+    $sourceFilter = $_GET['source'];
+    $whereClause = " WHERE source = '" . mysqli_real_escape_string($conn, $sourceFilter) . "'";
+}
+
+$query = "SELECT * FROM leads $whereClause ORDER BY id DESC";
+
   $result = mysqli_query($conn, $query);
 
   if (mysqli_num_rows($result) > 0) {
@@ -212,10 +269,32 @@ include 'dbconn.php';
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
   <div class="d-sm-flex justify-content-center justify-content-sm-between">
-    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ms-1"></i></span>
+    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2025.CRM. All rights reserved.</span>
+    <spn class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ms-1"></i></spn>
   </div>
 </footer>
+<!-- Upload Excel Modal -->
+<div class="modal fade" id="uploadExcelModal" tabindex="-1" aria-labelledby="uploadExcelModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="uplode_excel.php" method="POST" enctype="multipart/form-data" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadExcelModalLabel">Upload Excel File</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="excelFile" class="form-label">Select Excel File</label>
+          <input type="file" class="form-control" name="excel_file" id="excelFile" accept=".xls,.xlsx,.csv" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Upload</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
