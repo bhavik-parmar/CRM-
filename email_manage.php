@@ -203,7 +203,7 @@
 
   
 
-  <form action="mail_send.php" method="post">
+  <form action="mail_send.php" method="post" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="to" class="form-label">To :</label>
       <textarea id="to" name="to" rows="2" class="form-control"></textarea>
@@ -217,8 +217,12 @@
     <div class="mb-3">
       <label for="message" class="form-label">Message :</label>
       <textarea name="message" id="message" rows="8" class="form-control"></textarea>
-    </div>
-
+    </div> 
+    
+    <div class="mb-3">
+    <label for="attachment" class="form-label">Attach Document:</label>
+    <input type="file" name="attachment[]" id="attachment" class="form-control" multiple>
+  </div>
     <button type="submit" class="btn btn-primary btn-send">Send</button>
   </form>
 </div>
