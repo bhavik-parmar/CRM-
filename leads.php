@@ -1,6 +1,15 @@
 <?php
+session_start(); // Start the session
+
+
+// Check if the user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login_form.php"); // Redirect to login page
+    exit();
+}
 include 'dbconn.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,10 +25,9 @@ include 'dbconn.php';
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Bootstrap 5 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 <!-- Bootstrap 5 JS (Place before closing body tag) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <!-- endinject -->
@@ -80,7 +88,7 @@ include 'dbconn.php';
           <img src="assets/images/faces/face28.jpg" alt="profile" />
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-         <a class="dropdown-item">
+         <a class="dropdown-item" href="logout.php">
             <i class="ti-power-off text-primary"></i> Logout </a>
         </div>
       </li>

@@ -1,4 +1,12 @@
 <?php
+session_start(); // Start the session
+
+
+// Check if the user is not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login_form.php"); // Redirect to login page
+    exit();
+}
 include 'dbconn.php';
 
 // Check if an ID is passed in the URL
@@ -93,7 +101,7 @@ if (isset($_GET['id'])) {
           <img src="assets/images/faces/face28.jpg" alt="profile" />
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-         <a class="dropdown-item">
+         <a class="dropdown-item" href="logout.php">
             <i class="ti-power-off text-primary"></i> Logout </a>
         </div>
       </li>
@@ -247,8 +255,8 @@ if (isset($_GET['id'])) {
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
   <div class="d-sm-flex justify-content-center justify-content-sm-between">
-    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023. Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ms-1"></i></span>
+    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2025. CRM .</span>
+    
   </div>
 </footer>
           <!-- partial -->
